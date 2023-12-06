@@ -1,0 +1,48 @@
+form{
+  padding: 40px 16px;
+}
+.cw-form-title{
+  text-transform: capitalize;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.cw-form-buttons, .cw-form-group, .cw-grouped-form-groups, .form-wrapper, .cw-form-groups-with-forgot-pass{
+  display: flex;
+  flex-direction: column;
+}
+.form-wrapper{
+  gap: 24px;
+}
+.cw-form-buttons{
+  /* gap: 16px; */
+}
+.cw-grouped-form-groups{
+  gap: 4px;
+}
+.cw-form-groups-with-forgot-pass{
+  gap: 4px;
+}
+.forgot-password-wrapper p{
+  /* justify-content: flex-end; */
+  text-align: right;
+}
+.cw-form-group label, .cw-form-group input{
+  display: block;
+}
+.cw-form-group input{
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+.cw-button{
+  padding: 8px 16px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: #1a4594;
+  color: #e3e8f1;
+  font-size: 14px;
+  font-weight: medium;
+  border: none;
+  border-radius: 8px;
+}
