@@ -1,7 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-auth',
   standalone: true,
@@ -11,7 +11,8 @@ import { RouterLink } from '@angular/router';
 })
 export class AuthComponent implements OnInit {
   @Input() username!: string;
-  @Input() authPath!: string;
+  // @Input() authPath!: string;
+  authPath!: string;
   authForm: FormGroup = this.fb.group({
     name: ''
   })
@@ -21,10 +22,13 @@ export class AuthComponent implements OnInit {
     // Create a sepereate word if string has uppercase letters
     return this.authPath.replace(/[A-Z][a-z]*/g, str => ' ' + str.toLowerCase())
   }
-  constructor( private fb: FormBuilder){
+
+  authRoutes = ['register', 'login', 'sendOtp', 'verifyOtp']
+  constructor( private fb: FormBuilder, private router: Router){
 
   }
   ngOnInit(): void {
+    this.authPath = this.router.url.split('/')[1]; //Get route name
     console.log(this.authPath)
   }
 

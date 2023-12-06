@@ -45,4 +45,5 @@ form{
   font-weight: medium;
   border: none;
   border-radius: 8px;
+  text-transform: capitalize;
 }
