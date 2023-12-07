@@ -7,36 +7,37 @@
         @if (authPath === 'register') {
           <div class="cw-form-group">
             <label for="">Username</label>
-            <input type="text" formControlName="name">
+            <input type="text" formControlName="username">
           </div>
         }
         <!-- Email Field -->
         @if (authPath === 'register' || authPath === 'login' || authPath === 'sendOtp') {
           <div class="cw-form-group">
             <label for="">Email</label>
-            <input type="email">
+            <input type="email" formControlName="email">
           </div>
         }
         <!-- OTP and Password Field -->
         @if (authPath == 'verifyOtp') {
           <div class="cw-form-group">
             <label for="">Otp</label>
-            <input type="text">
+            <input type="text" formControlName="otp">
           </div>
-          <div class="cw-form-group">
+          <!-- <div class="cw-form-group">
             <label for="">Password</label>
-            <input type="password">
+            <input type="password" formControlName="password">
           </div>
           <div class="cw-form-group">
             <label for="">Confirm Password</label>
-            <input type="password">
-          </div>
+            <input type="password" formControlName="confirmPassword">
+          </div> -->
         }@else if (authPath == 'register' || authPath == 'login') {
           <div class="cw-form-group">
             <label for="">Password</label>
-            <input type="password">
+            <input type="password" formControlName="password">
           </div>
         }
+        <!-- @if () {} -->
 
       </div>
       <div class="forgot-password-wrapper">

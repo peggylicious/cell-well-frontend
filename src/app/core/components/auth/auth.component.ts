@@ -2,6 +2,8 @@ import { NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthenticationService } from '../../services/authentication.service';
+import { tap } from 'rxjs';
 @Component({
   selector: 'app-auth',
   standalone: true,
@@ -14,7 +16,12 @@ export class AuthComponent implements OnInit {
   // @Input() authPath!: string;
   authPath!: string;
   authForm: FormGroup = this.fb.group({
-    name: ''
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    otp: '',
+    userId: '',
   })
 
   get formButtonTitle(){
@@ -24,7 +31,7 @@ export class AuthComponent implements OnInit {
   }
 
   authRoutes = ['register', 'login', 'sendOtp', 'verifyOtp']
-  constructor( private fb: FormBuilder, private router: Router){
+  constructor( private fb: FormBuilder, private router: Router, private authService: AuthenticationService){
 
   }
   ngOnInit(): void {
@@ -33,6 +40,18 @@ export class AuthComponent implements OnInit {
   }
 
   submitForm(url:string){
+    const {username, email, password, otp} = this.authForm.value;
     console.log(`This is the ${url} page`, this.authForm.value)
+    if(url === 'register'){
+      this.authService.registerUser({username, email, password}).subscribe(x=> {
+        this.router.navigateByUrl('/verifyOtp')
+      })
+    }
+    if(url === 'verifyOtp'){
+      const userId = localStorage.getItem('cwUserId')
+      this.authService.verifyOtp({userId, otp, verified: false}).subscribe(x=> {
+        // this.router.navigateByUrl('/home')
+      })
+    }
   }
 }
