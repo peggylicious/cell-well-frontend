@@ -47,10 +47,15 @@ export class AuthComponent implements OnInit {
         this.router.navigateByUrl('/verifyOtp')
       })
     }
+    if(url === 'login'){
+      this.authService.loginUser({username, email, password}).subscribe(result=> {
+        this.router.navigateByUrl('admin/home')
+      })
+    }
     if(url === 'verifyOtp'){
       const userId = localStorage.getItem('cwUserId')
       this.authService.verifyOtp({userId, otp, verified: false}).subscribe(x=> {
-        // this.router.navigateByUrl('/home')
+        this.router.navigateByUrl('admin/home')
       })
     }
   }

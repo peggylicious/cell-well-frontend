@@ -12,13 +12,21 @@ export class AuthenticationService {
   registerUser(user: any){
     return this.http.post(`${this.baseUrl}register`, user).pipe(
       tap(x=> {
-        // localStorage.setItem('userId', x!.data)
         const userData = x as {status: string, message: string, data: {userId: string}}
-        console.log(userData.data.userId)
         localStorage.setItem('cwUserId', userData.data.userId)
       })
     )
   }
+
+  loginUser(user: any){
+    return this.http.post(`${this.baseUrl}login`, user).pipe(
+      tap(x=> {
+        const userData = x as {status: string, message: string, loggedInUser: {}}
+        localStorage.setItem('cwNewUser', JSON.stringify(userData.loggedInUser))
+      })
+    )
+  }
+
   verifyOtp(user: any){
     return this.http.post(`${this.baseUrl}verifyOtp`, user).pipe(
       tap(x=> {
