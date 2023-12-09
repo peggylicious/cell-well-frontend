@@ -17,6 +17,10 @@ export const routes: Routes = [
     component: AuthComponent,
   },
   {
+    path: 'forgotPassword',
+    component: AuthComponent,
+  },
+  {
     path: 'sendOtp',
     component: AuthComponent,
   },

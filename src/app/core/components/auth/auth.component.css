@@ -47,3 +47,7 @@ form{
   border-radius: 8px;
   text-transform: capitalize;
 }
+.cw-invalid{
+  border-color: red;
+  color: red;
+}

@@ -31,13 +31,22 @@
             <label for="">Confirm Password</label>
             <input type="password" formControlName="confirmPassword">
           </div> -->
-        }@else if (authPath == 'register' || authPath == 'login') {
+        }@else if (authPath == 'register' || authPath == 'login' || authPath == 'forgotPassword') {
           <div class="cw-form-group">
             <label for="">Password</label>
             <input type="password" formControlName="password">
           </div>
         }
-        <!-- @if () {} -->
+        @if (authPath == 'forgotPassword') {
+          <div class="cw-form-group">
+            <label for="">Confirm Password</label>
+            <input type="password" formControlName="confirmPassword">
+          </div>
+        <p *ngIf="valuesMatch">Password does not match</p>
+
+        }
+        <!-- <p *ngIf="valuesMatch && (authPath === 'forgotPassword')">Password does not match</p> -->
+
 
       </div>
       <div class="forgot-password-wrapper">
