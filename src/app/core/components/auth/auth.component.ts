@@ -1,14 +1,14 @@
-import { NgIf } from '@angular/common';
+import { KeyValuePipe, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { tap } from 'rxjs';
-import { StrongPasswordRegx, checkPasswordEqual, checkPasswordType } from '../../validators/password';
+import { StrongPasswordRegx, checkPasswordEqual, patternvalidator } from '../../validators/password';
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, NgIf],
+  imports: [RouterLink, ReactiveFormsModule, NgIf, NgFor, KeyValuePipe],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })
@@ -19,13 +19,13 @@ export class AuthComponent implements OnInit {
   authRoutes = ['register', 'login', 'sendOtp', 'verifyOtp']
   authForm: FormGroup = this.fb.group({
     username: '',
-    email: '',
+    email: ['', [Validators.required, Validators.email]],
     // password: ['', Validators.pattern(StrongPasswordRegx)],
-    password: [''],
+    password: ['', Validators.required],
     confirmPassword: [''],
     otp: '',
     userId: '',
-  }, {validators: checkPasswordType('password')})
+  }, {validators: [patternvalidator('password'), checkPasswordEqual('password', 'confirmPassword')]})
 
   get formButtonTitle(){
     // Create a sepereate word if string has uppercase letters
@@ -38,6 +38,12 @@ export class AuthComponent implements OnInit {
 
     // }
     return
+  }
+  get customPasswordErrors(){
+    return this.authForm.errors?.['passwordErrors']
+  }
+  get emailErrors(){
+    return this.authForm.controls?.['email'].errors
   }
   get valuesMatch(){
     console.log(this.authForm.errors?.['isString'])

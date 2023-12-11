@@ -15,6 +15,10 @@
           <div class="cw-form-group">
             <label for="">Email</label>
             <input type="email" formControlName="email">
+            <div>
+              <small *ngIf="emailErrors?.['required'] && (authForm.touched || authForm.dirty)" class="form-error">Email is required</small>
+              <small *ngIf="emailErrors?.['email'] && (authForm.touched || authForm.dirty)" class="form-error">Email must be a valid email address</small>
+            </div>
           </div>
         }
         <!-- OTP and Password Field -->
@@ -23,31 +27,31 @@
             <label for="">Otp</label>
             <input type="text" formControlName="otp">
           </div>
-          <!-- <div class="cw-form-group">
-            <label for="">Password</label>
-            <input type="password" formControlName="password">
-          </div>
-          <div class="cw-form-group">
-            <label for="">Confirm Password</label>
-            <input type="password" formControlName="confirmPassword">
-          </div> -->
         }@else if (authPath == 'register' || authPath == 'login' || authPath == 'forgotPassword') {
           <div class="cw-form-group">
             <label for="">Password</label>
             <input type="password" formControlName="password">
           </div>
+
+          <!-- <div *ngIf="authForm.errors && (authForm.touched || authForm.dirty)" class="error-wrapper">
+            <small *ngFor="let error of authForm.errors?.['passwordErrors'] | keyvalue" class="form-error">{{error.value}}</small>
+          </div> -->
         }
         @if (authPath == 'forgotPassword') {
           <div class="cw-form-group">
             <label for="">Confirm Password</label>
             <input type="password" formControlName="confirmPassword">
           </div>
-        <p *ngIf="valuesMatch">Password does not match</p>
-
+          <!-- <small *ngIf="valuesMatch" class="form-error">Password does not match</small> -->
         }
-        <!-- <p *ngIf="valuesMatch && (authPath === 'forgotPassword')">Password does not match</p> -->
-
-
+        @if (authPath == 'register' || authPath == 'forgotPassword') {
+          <div *ngIf="authForm.controls?.['password']?.errors?.['required'] && (authForm.touched || authForm.dirty)">
+            <small class="form-error">'This field is required</small>
+          </div>
+          <div *ngIf="authForm.errors && (authForm.touched || authForm.dirty) && !authForm.controls?.['password']?.errors?.['required']" class="error-wrapper">
+            <small *ngFor="let error of customPasswordErrors | keyvalue" class="form-error">{{error.value}}</small>
+          </div>
+        }
       </div>
       <div class="forgot-password-wrapper">
         <p *ngIf="authPath === 'login'"><a routerLink="../sendOtp">Forgot password?</a></p>
