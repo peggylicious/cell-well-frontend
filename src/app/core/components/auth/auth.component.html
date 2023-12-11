@@ -32,10 +32,6 @@
             <label for="">Password</label>
             <input type="password" formControlName="password">
           </div>
-
-          <!-- <div *ngIf="authForm.errors && (authForm.touched || authForm.dirty)" class="error-wrapper">
-            <small *ngFor="let error of authForm.errors?.['passwordErrors'] | keyvalue" class="form-error">{{error.value}}</small>
-          </div> -->
         }
         @if (authPath == 'forgotPassword') {
           <div class="cw-form-group">
