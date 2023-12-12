@@ -47,7 +47,8 @@ export function patternvalidator(val: string):ValidatorFn{
     // }else{
     //   return null
     // }
-    return JSON.stringify(control.errors) === '{}'? null: checkValidity(control, val)
+    console.log(control.errors?.['passwordErrors'])
+    return JSON.stringify(control.errors?.['passwordErrors']) === '{}'? null: checkValidity(control, val)
   }
 }
 

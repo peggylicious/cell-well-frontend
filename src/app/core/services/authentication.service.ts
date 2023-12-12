@@ -34,8 +34,22 @@ export class AuthenticationService {
       })
     )
   }
+  sendOtp(user: any){
+    return this.http.post<{data:any}>(`${this.baseUrl}sendOtp`, user).pipe(
+      tap(x=> {
+        console.log(x)
+      })
+    )
+  }
   verifyNewuser(user: any){
     return this.http.post(`${this.baseUrl}verifyNewuser`, user).pipe(
+      tap(x=> {
+        console.log(x)
+      })
+    )
+  }
+  resetPassword(user: any){
+    return this.http.post(`${this.baseUrl}updatePassword`, user).pipe(
       tap(x=> {
         console.log(x)
       })

@@ -23,7 +23,7 @@ form{
 .cw-form-groups-with-forgot-pass{
   gap: 4px;
 }
-.forgot-password-wrapper p{
+.forgot-password-link-wrapper p{
   /* justify-content: flex-end; */
   text-align: right;
 }
