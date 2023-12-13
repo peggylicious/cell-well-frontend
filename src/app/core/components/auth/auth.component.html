@@ -42,16 +42,24 @@
             <label for="">Confirm Password</label>
             <input type="password" formControlName="confirmPassword">
           </div>
+          <!-- Form Error (Required Field)-->
           <div *ngIf="authForm.controls?.['confirmPassword']?.errors?.['required'] && (authForm.touched || authForm.dirty) && authForm.controls?.['password']?.value.length === 0">
             <small class="form-error">This field is required</small>
           </div>
-          <div *ngIf="passwordMisMatch" class="error-wrapper">
-            <small class="form-error">{{'Passworrd Mismatch'}}</small>
+          <!-- Form Error (Password Mismatch) -->
+          <div *ngIf="passwordMismatch && authForm.controls?.['confirmPassword']?.value.length > 0" class="error-wrapper">
+            <small *ngIf="authForm.hasError('valuesDoNotMatch')" class="form-error">{{authForm.errors?.['valuesDoNotMatch']}}</small>
           </div>
         }
+        <!-- Form Error (Regex Test)-->
         @if (authPath == 'register' || authPath == 'resetPassword') {
-          <div *ngIf="authForm.errors && (authForm.touched || authForm.dirty)" class="error-wrapper">
-            <small *ngFor="let error of customPasswordErrors | keyvalue" class="form-error">{{error.value}}</small>
+          <div *ngIf="authForm.errors && (authForm.touched || authForm.dirty) && !authForm.controls?.['password']?.errors" class="error-wrapper">
+            <!-- <small *ngFor="let error of customPasswordErrors | keyvalue" class="form-error">{{error.value}}</small> -->
+            <small *ngIf="authForm.hasError('requireNum')" class="form-error">{{authForm.errors['requireNum']}}</small>
+            <small *ngIf="authForm.hasError('requireLowercase')" class="form-error">{{authForm.errors['requireLowercase']}}</small>
+            <small *ngIf="authForm.hasError('requireUppercase')" class="form-error">{{authForm.errors['requireUppercase']}}</small>
+            <small *ngIf="authForm.hasError('requireSpecialCharacter')" class="form-error">{{authForm.errors['requireSpecialCharacter']}}</small>
+
           </div>
         }
       </div>
@@ -62,7 +70,7 @@
 
     <!-- Form buttons Field -->
     <div class="cw-form-buttons">
-      <button type="submit" class="cw-button">{{ formButtonTitle }}</button>
+      <button type="submit" class="cw-button" [ngClass]="{'disabled': authForm.invalid}">{{ formButtonTitle }}</button>
     </div>
     <div>
       @switch (authPath) {

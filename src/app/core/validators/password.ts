@@ -15,7 +15,7 @@ export function checkPasswordEqual(val1: string, val2:string): ValidatorFn{
     if(valueA === valueB){
       return null
     }else{
-      return {valuesDoNotMatch: true}
+      return {valuesDoNotMatch: 'Values do not match'}
     }
   }
 }
@@ -47,8 +47,9 @@ export function patternvalidator(val: string):ValidatorFn{
     // }else{
     //   return null
     // }
-    console.log(control.errors?.['passwordErrors'])
-    return JSON.stringify(control.errors?.['passwordErrors']) === '{}'? null: checkValidity(control, val)
+    // console.log(control.errors?.['passwordErrors'])
+    // return JSON.stringify(control.errors?.['passwordErrors']) === '{}'? null: checkValidity(control, val)
+    return checkValidity(control, val)
   }
 }
 
@@ -71,5 +72,5 @@ function checkValidity(control: AbstractControl, val:string){
       if(!regexSpecial.test(userPassword)){
         passwordErrors['requireSpecialCharacter'] = 'Must contain at least 1 special character'
       }
-    return {passwordErrors: passwordErrors}
+    return passwordErrors || null
 }

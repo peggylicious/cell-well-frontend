@@ -47,6 +47,9 @@ form{
   border-radius: 8px;
   text-transform: capitalize;
 }
+.cw-button.disabled{
+  background-color: rgba(26, 69, 148, 0.3);
+}
 .cw-invalid{
   border-color: red;
   color: red;

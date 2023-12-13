@@ -1,4 +1,4 @@
-import { KeyValuePipe, NgFor, NgIf } from '@angular/common';
+import { KeyValuePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -9,7 +9,7 @@ import { loginControl, registerControl, resetPasswordControl, sendOtpControl, ve
 @Component({
   selector: 'app-auth',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, NgIf, NgFor, KeyValuePipe],
+  imports: [RouterLink, ReactiveFormsModule, NgIf, NgFor, KeyValuePipe, NgClass],
   templateUrl: './auth.component.html',
   styleUrl: './auth.component.css'
 })
@@ -40,14 +40,31 @@ export class AuthComponent implements OnInit {
     return
   }
   get customPasswordErrors(){
-    return this.authForm.errors?.['passwordErrors']
+    // const customKeys = ['requireNum', 'requireUppercase', 'requireLowercase', 'requireSpecialCharacter' ]
+    // const errorKeys = Object.keys(this.authForm.errors!)
+    // let sortedErrors:any[] = []
+    // errorKeys.filter(x => {
+    //   if(customKeys.includes(x)){
+    //     sortedErrors.push( {x: this.authForm?.errors![x]})
+    //     return {x: this.authForm?.errors![x]}
+    //   }else{
+    //     return null
+    //   }
+    // })
+    // return sortedErrors
+    return this.authForm.errors
+  }
+  get customConfirmPasswordErrors(){
+    const customKeys = ['valuesDoNotMatch', 'requireUppercase']
+    const errorKeys = Object.keys(this.authForm.errors!)
+    return  errorKeys.filter(x => customKeys.includes(x))
   }
   get emailErrors(){
     return this.authForm.controls?.['email'].errors
   }
 
-  get passwordMisMatch(){
-    if(JSON.stringify(this.authForm.errors?.['passwordErrors']) === "{}" && this.authForm.controls?.['confirmPassword'].dirty && this.authForm.errors?.['valuesDoNotMatch']){
+  get passwordMismatch(){
+    if(Object.keys(this.authForm.errors || {}).includes('valuesDoNotMatch')){
       return true
     }else{
       return false
@@ -63,16 +80,16 @@ export class AuthComponent implements OnInit {
       this.authForm = this.fb.group(registerControl, {validators: [patternvalidator('password')]})
     }
     if(this.authPath === 'login'){
-      this.authForm = this.fb.group(loginControl, {validators: [patternvalidator('password')]})
+      this.authForm = this.fb.group(loginControl)
     }
     if(this.authPath === 'verifyOtp'){
-      this.authForm = this.fb.group(verifyOtpControl, {validators: [patternvalidator('password')]})
+      this.authForm = this.fb.group(verifyOtpControl)
     }
     if(this.authPath === 'sendOtp'){
-      this.authForm = this.fb.group(sendOtpControl, {validators: [patternvalidator('password')]})
+      this.authForm = this.fb.group(sendOtpControl)
     }
     if(this.authPath === 'resetPassword'){
-      this.authForm = this.fb.group(resetPasswordControl, {validators: [patternvalidator('password')]})
+      this.authForm = this.fb.group(resetPasswordControl, {validators: [patternvalidator('password'), checkPasswordEqual('password', 'confirmPassword')]})
     }
     console.log(this.authForm)
 
