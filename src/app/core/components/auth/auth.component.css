@@ -14,9 +14,7 @@ form{
 .form-wrapper{
   gap: 24px;
 }
-.cw-form-buttons{
-  /* gap: 16px; */
-}
+
 .cw-grouped-form-groups{
   gap: 4px;
 }

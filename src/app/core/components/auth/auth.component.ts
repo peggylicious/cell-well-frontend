@@ -21,14 +21,6 @@ export class AuthComponent implements OnInit {
   authRoutes = ['register', 'login', 'sendOtp', 'verifyOtp']
   validButton: boolean = false;
   authForm!: FormGroup;
-  // this.fb.group({
-  //   username: '',
-  //   email: ['', [Validators.required, Validators.email]],
-  //   password: ['', [Validators.required]],
-  //   confirmPassword: ['', [Validators.required]],
-  //   otp: '',
-  //   userId: '',
-  // }, {validators: [patternvalidator('password'), checkPasswordEqual('password', 'confirmPassword')]})
 
   get formButtonTitle(){
     // Create a sepereate word if string has uppercase letters
@@ -39,26 +31,11 @@ export class AuthComponent implements OnInit {
     this.authForm.get('password')?.errors
     return
   }
+
   get customPasswordErrors(){
-    // const customKeys = ['requireNum', 'requireUppercase', 'requireLowercase', 'requireSpecialCharacter' ]
-    // const errorKeys = Object.keys(this.authForm.errors!)
-    // let sortedErrors:any[] = []
-    // errorKeys.filter(x => {
-    //   if(customKeys.includes(x)){
-    //     sortedErrors.push( {x: this.authForm?.errors![x]})
-    //     return {x: this.authForm?.errors![x]}
-    //   }else{
-    //     return null
-    //   }
-    // })
-    // return sortedErrors
     return this.authForm.errors
   }
-  get customConfirmPasswordErrors(){
-    const customKeys = ['valuesDoNotMatch', 'requireUppercase']
-    const errorKeys = Object.keys(this.authForm.errors!)
-    return  errorKeys.filter(x => customKeys.includes(x))
-  }
+
   get emailErrors(){
     return this.authForm.controls?.['email'].errors
   }
@@ -99,34 +76,34 @@ export class AuthComponent implements OnInit {
     const {username, email, password, otp, confirmPassword} = this.authForm.value;
 
     console.log(`This is the ${url} page`, this.authForm.value)
-    // if(url === 'register'){
-    //   this.authService.registerUser({username, email, password}).subscribe(x=> {
-    //     this.router.navigateByUrl('/verifyOtp')
-    //   })
-    // }
-    // if(url === 'login'){
-    //   this.authService.loginUser({username, email, password}).subscribe(result=> {
-    //     this.router.navigateByUrl('admin/home')
-    //   })
-    // }
-    // if(url === 'verifyOtp'){
-    //   const userId = localStorage.getItem('cwUserId')
-    //   this.authService.verifyOtp({userId, otp, verified: false}).subscribe(x=> {
-    //     this.router.navigateByUrl('admin/home')
-    //   })
-    // }
-    // if(url === 'sendOtp'){
-    //   this.authService.sendOtp({email}).subscribe(x=> {
-    //     console.log(x)
-    //     this.router.navigate(['../resetPassword'], {relativeTo: this.route, state: {id: x?.data.userId}})
-    //   })
-    // }
-    // if(url === 'resetPassword'){
-    //   const userId = localStorage.getItem('cwUserId')
-    //   this.authService.resetPassword({userId: history.state.id, otp, password, confirmPassword}).subscribe(x=> {
-    //     this.router.navigateByUrl('admin/home')
-    //   })
-    // }
+    if(url === 'register'){
+      this.authService.registerUser({username, email, password}).subscribe(x=> {
+        this.router.navigateByUrl('/verifyOtp')
+      })
+    }
+    if(url === 'login'){
+      this.authService.loginUser({username, email, password}).subscribe(result=> {
+        this.router.navigateByUrl('admin/home')
+      })
+    }
+    if(url === 'verifyOtp'){
+      const userId = localStorage.getItem('cwUserId')
+      this.authService.verifyOtp({userId, otp, verified: false}).subscribe(x=> {
+        this.router.navigateByUrl('admin/home')
+      })
+    }
+    if(url === 'sendOtp'){
+      this.authService.sendOtp({email}).subscribe(x=> {
+        console.log(x)
+        this.router.navigate(['../resetPassword'], {relativeTo: this.route, state: {id: x?.data.userId}})
+      })
+    }
+    if(url === 'resetPassword'){
+      const userId = localStorage.getItem('cwUserId')
+      this.authService.resetPassword({userId: history.state.id, otp, password, confirmPassword}).subscribe(x=> {
+        this.router.navigateByUrl('admin/home')
+      })
+    }
     console.log(this.authForm)
 
   }
