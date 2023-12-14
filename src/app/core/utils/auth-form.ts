@@ -14,7 +14,6 @@ export const sendOtpControl = {
 }
 export const verifyOtpControl = {
   otp: ['', [Validators.required]],
-  password: ['', [Validators.required]],
 }
 export const resetPasswordControl = {
   otp: ['', [Validators.required]],

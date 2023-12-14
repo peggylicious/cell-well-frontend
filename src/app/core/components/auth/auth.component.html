@@ -26,6 +26,9 @@
           <div class="cw-form-group">
             <label for="">Otp</label>
             <input type="text" formControlName="otp">
+            <div *ngIf="authForm.controls?.['otp']?.errors?.['required']">
+              <small class="form-error">This field is required</small>
+            </div>
           </div>
         }
         @if (authPath == 'register' || authPath == 'login' || authPath == 'resetPassword') {
