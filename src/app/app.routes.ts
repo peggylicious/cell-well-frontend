@@ -2,6 +2,7 @@ import { Routes, UrlSegment } from '@angular/router';
 import { AuthComponent } from './core/components/auth/auth.component';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
 import { HomeComponent } from './admin/components/home/home.component';
+import { adminGuard } from './core/guards/admin.guard';
 
 export const routes: Routes = [
   // {
@@ -31,6 +32,7 @@ export const routes: Routes = [
   {
     path: 'admin/home',
     component: HomeComponent,
+    canActivate: [adminGuard]
   },
   {
     path: '',
