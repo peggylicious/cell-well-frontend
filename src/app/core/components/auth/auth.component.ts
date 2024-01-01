@@ -82,9 +82,7 @@ export class AuthComponent implements OnInit {
       })
     }
     if(url === 'login'){
-      this.authService.loginUser({username, email, password}).subscribe(result=> {
-        this.router.navigateByUrl('admin/home')
-      })
+      this.authService.onLogin({username, email, password})
     }
     if(url === 'verifyOtp'){
       const userId = localStorage.getItem('cwUserId')
