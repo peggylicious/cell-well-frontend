@@ -97,4 +97,17 @@ export class AuthenticationService {
       })
     )
   }
+
+  updateUserRole(id:string, role:string){
+    return this.http.put(`${this.baseUrl}updateRole`, {id, role}).subscribe({next: (res)=> {
+      console.log(res)
+      // this.allUsers.set({user: res, status: 'success'})
+      console.log('User there', res)
+    },
+    error(err) {
+      console.log('User there', err)
+    },
+
+    })
+  }
 }
