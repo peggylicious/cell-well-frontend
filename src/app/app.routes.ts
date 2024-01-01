@@ -30,9 +30,22 @@ export const routes: Routes = [
     component: AuthComponent,
   },
   {
-    path: 'admin/home',
+    path: 'admin',
     component: HomeComponent,
-    canActivate: [adminGuard]
+    canActivate: [adminGuard],
+    children: [
+      {
+        path: 'home',
+        component: HomeComponent,
+        // component: Userlist,
+      },
+      {
+        path: 'all-users',
+        component: HomeComponent,
+        // component: Userlist,
+      },
+    ]
+
   },
   {
     path: '',
