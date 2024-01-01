@@ -1,9 +1,10 @@
 import { NgIf } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthenticationService } from '../../../core/services/authentication.service';
 import { tap } from 'rxjs';
+import { CoreService } from '../../../core/services/core.service';
 
 @Component({
   selector: 'app-home',
@@ -13,25 +14,20 @@ import { tap } from 'rxjs';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit{
-  @Input() username!: string;
-  // @Input() authPath!: string;
-  authPath!: string;
-  authForm: FormGroup = this.fb.group({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    otp: '',
-    userId: '',
-  })
+authService = inject(AuthenticationService)
 
-  constructor(private fb: FormBuilder){}
 
+  constructor(private coreService: CoreService){}
+  autthService = inject(AuthenticationService)
   ngOnInit(): void {
 
   }
 
   submitForm(path:any){
 
+  }
+
+  findUser(){
+    this.coreService.findUser()
   }
 }
