@@ -1,4 +1,13 @@
 <div>
   <h1>Welcome {{ authService.state().user?.loggedInUser?.email}}</h1>
   <button (click)="findUser()">Find User</button>
+
+  <div>
+    <h3>All Staff</h3>
+    <ul>
+      @for (item of coreService.allUsers().user; track $index) {
+        <li (click)="updateUserRole(item._id, item.role)">{{item.email}}</li>
+      }
+    </ul>
+  </div>
 </div>

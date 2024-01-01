@@ -15,12 +15,12 @@ import { CoreService } from '../../../core/services/core.service';
 })
 export class HomeComponent implements OnInit{
 authService = inject(AuthenticationService)
+coreService = inject(CoreService)
 
-
-  constructor(private coreService: CoreService){}
-  autthService = inject(AuthenticationService)
+  constructor(){}
+  // authService = inject(AuthenticationService)
   ngOnInit(): void {
-
+    this.coreService.getAllUsers()
   }
 
   submitForm(path:any){
@@ -29,5 +29,11 @@ authService = inject(AuthenticationService)
 
   findUser(){
     this.coreService.findUser()
+  }
+
+  updateUserRole(id:string, role:string = 'Admin'){
+    const payload = {id, role: 'Admin'}
+    console.log(payload)
+    this.authService.updateUserRole(payload.id, payload.role)
   }
 }
