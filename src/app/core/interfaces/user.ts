@@ -27,3 +27,17 @@ export interface UserAuth{
   }
 
 }
+
+
+export interface loggedInUser {
+  message: string,
+  loggedInUser: existingUser
+  access_token: string,
+  verified: string
+}
+
+export interface existingUser {
+  _id: string,
+  email: string,
+  role: string
+}
