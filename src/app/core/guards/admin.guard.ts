@@ -8,7 +8,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
   const loggedInUser = JSON.parse(localStorage.getItem('cwNewUser') as string);
 
   // if(loggedInUser.role === 'Admin'){
-  if(loggedInUser?.role === 'Basic'){
+  if(loggedInUser?.role === 'Admin'){
     return true
   }else{
     return false
